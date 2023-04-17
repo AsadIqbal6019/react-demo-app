@@ -21,10 +21,15 @@
 // }
 
 pipeline {
-    agent any
-    options {
-       buildDiscarder(logRotator(numToKeepStr: '5'))
+    agent {
+     docker {
+      image 'node:14-alpine'
+      args '-p 3000:3000'
     }
+    }
+    // options {
+    //    buildDiscarder(logRotator(numToKeepStr: '5'))
+    // }
     environment {
     DOCKERHUB_CREDENTIALS = credentials('docker-login')
     }
