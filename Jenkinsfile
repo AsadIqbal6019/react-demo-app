@@ -21,7 +21,12 @@
 // }
 
 pipeline {
-    agent any 
+    agent {
+           docker {
+            image 'node:lts-bullseye-slim' 
+            args '-p 3000:3000' 
+        }
+    }
     environment {
     DOCKERHUB_CREDENTIALS = credentials('docker-login')
     }
