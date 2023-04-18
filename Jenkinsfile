@@ -47,6 +47,14 @@ pipeline {
                 sh 'docker push asadiqbal6019/react-demo-app:$BUILD_NUMBER'
             }
         }
+
+        stage('pull image') {
+            steps{
+                sh 'docker pull asadiqbal6019/react-demo-app:$BUILD_NUMBER'
+                // sh 'docker run -p 3000:3000 --name react-demo-app asadiqbal6019/react-demo-app:$BUILD_NUMBER'
+
+            }
+        }
 }
 post {
         always {
