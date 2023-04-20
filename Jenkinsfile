@@ -34,7 +34,7 @@ pipeline {
 
         stage('Build docker image') {
             steps {  
-                sh 'docker build -t asadiqbal6019/react-demo-app:$BUILD_NUMBER .'
+                sh 'docker build -t asadiqbal6019/react-demo-app:$BUILD_NUMBER.0 .'
             }
         }
         stage('login to dockerhub') {
@@ -44,13 +44,13 @@ pipeline {
         }
         stage('push image') {
             steps{
-                sh 'docker push asadiqbal6019/react-demo-app:$BUILD_NUMBER'
+                sh 'docker push asadiqbal6019/react-demo-app:$BUILD_NUMBER.0'
             }
         }
 
         stage('pull image') {
             steps{
-                sh 'docker pull asadiqbal6019/react-demo-app:$BUILD_NUMBER'
+                sh 'docker pull asadiqbal6019/react-demo-app:$BUILD_NUMBER.0'
                 // sh 'docker run -p 3000:3000 --name react-demo-app asadiqbal6019/react-demo-app:$BUILD_NUMBER'
 
             }
