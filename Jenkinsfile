@@ -48,13 +48,35 @@ pipeline {
             }
         }
 
-        stage('pull image') {
-            steps{
-                sh 'docker pull asadiqbal6019/react-demo-app:$BUILD_NUMBER.0'
-                // sh 'docker run -p 3000:3000 --name react-demo-app asadiqbal6019/react-demo-app:$BUILD_NUMBER'
 
-            }
+           stage('enviroment-setup') {
+        steps {
+          script {  
+            // if( "${env.DEPLOY_BRANCH}" == "develop" ) {
+            //     DEPLOY_SRV = "ubuntu@ec2-100-26-239-182.compute-1.amazonaws.com"
+            //     echo "Target Server will be : ${DEPLOY_SRV}"
+            //     echo "Target Branch will be : ${env.DEPLOY_BRANCH}"
+            // } 
+            // else if( "${env.DEPLOY_BRANCH}" == "master" ) {
+            //     DEPLOY_SRV = "ubuntu@ec2-44-211-130-172.compute-1.amazonaws.com"
+            //     echo "Target Server will be : ${DEPLOY_SRV}"
+            //     echo "Target Branch will be : ${env.DEPLOY_BRANCH}"
+            // }
+            GIT_COMMIT_HASH = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
+                echo "**************************************************"
+                echo "Commit Hash to be Deployed: ${GIT_COMMIT_HASH}"
+                echo "**************************************************"
+          } 
         }
+    }
+
+        // stage('pull image') {
+        //     steps{
+        //         sh 'docker pull asadiqbal6019/react-demo-app:$BUILD_NUMBER.0'
+        //         // sh 'docker run -p 3000:3000 --name react-demo-app asadiqbal6019/react-demo-app:$BUILD_NUMBER'
+
+        //     }
+        // }
 }
 post {
         always {
